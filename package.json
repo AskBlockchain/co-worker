@@ -1,0 +1,7 @@
+{
+  "name": "co-worker",
+  "private": true,
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0"
+  }
+}
