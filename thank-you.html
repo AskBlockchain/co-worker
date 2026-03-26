@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Co-Worker.xyz</title>
+<meta name="description" content="Your CW Credits purchase is confirmed. Welcome to Co-Worker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --slate: #1B2631;
+  --emerald: #10B981;
+  --emerald-dark: #059669;
+  --emerald-light: #D1FAE5;
+  --surface: #F8FAF9;
+  --text: #1D1D1F;
+  --text-secondary: #5A6672;
+  --text-muted: #8896A4;
+  --white: #FFFFFF;
+  --border: #E2E8F0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--text);
+  background: var(--slate);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+nav {
+  background: rgba(27,38,49,0.95);
+  border-bottom: 1px solid rgba(16,185,129,0.1);
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.nav-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600; font-size: 20px;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--emerald); }
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  position: relative;
+}
+.main::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 600px 400px at 50% 40%, rgba(16,185,129,0.1), transparent);
+}
+
+.card {
+  position: relative; z-index: 2;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 56px 48px;
+  max-width: 540px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes checkDraw {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+
+.check-circle {
+  width: 72px; height: 72px;
+  background: var(--emerald-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+  animation: scaleIn 0.4s ease both;
+}
+.check-circle svg {
+  width: 32px; height: 32px;
+  stroke: var(--emerald-dark);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.check-circle svg polyline {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: checkDraw 0.4s ease 0.3s forwards;
+}
+
+.card h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  animation: fadeUp 0.5s ease 0.2s both;
+}
+.card .subtitle {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  animation: fadeUp 0.5s ease 0.3s both;
+}
+
+.next-steps {
+  text-align: left;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s ease 0.4s both;
+}
+.next-steps h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+}
+.step-item:not(:last-child) { border-bottom: 1px solid var(--border); }
+.step-num {
+  width: 24px; height: 24px;
+  background: var(--emerald);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.step-text strong { color: var(--text); }
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  animation: fadeUp 0.5s ease 0.5s both;
+}
+.btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--emerald);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--emerald); }
+
+.receipt-note {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 20px;
+  animation: fadeUp 0.5s ease 0.6s both;
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 600px) {
+  .card { padding: 40px 24px; }
+  .card h1 { font-size: 24px; }
+  .card-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Co-Worker<span>.xyz</span></a>
+</nav>
+
+<div class="main">
+  <div class="card">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+
+    <h1>You're in. Welcome aboard.</h1>
+    <p class="subtitle">Your CW Credits have been secured at the early-adopter price. You'll receive a confirmation email from Stripe shortly with your receipt.</p>
+
+    <div class="next-steps">
+      <h2>What happens next</h2>
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Check your email</strong> for your Stripe receipt and purchase confirmation.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>You'll hear from us</strong> with founder updates, early access invites, and your credit activation details.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>When we launch</strong>, your CW Credits will be loaded into your account automatically at full face value.</div>
+      </div>
+    </div>
+
+    <div class="card-actions">
+      <a href="/" class="btn btn-primary">
+        Back to Co-Worker
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://twitter.com/intent/tweet?text=Just%20bought%20CW%20Credits%20from%20%40CoWorkerXYZ%20%E2%80%94%20AI-powered%20business%20tools%20for%20non-technical%20entrepreneurs.%20Early%20access%20is%20open!%20https%3A%2F%2Fco-worker.xyz" target="_blank" class="btn btn-secondary">
+        Share on X
+      </a>
+    </div>
+
+    <p class="receipt-note">Questions? Email <a href="mailto:hello@co-worker.xyz" style="color:var(--emerald)">hello@co-worker.xyz</a></p>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 Co-Worker.xyz &bull; All rights reserved
+</footer>
+
+</body>
+</html>
