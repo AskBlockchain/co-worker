@@ -1,19 +1,31 @@
 # Co-Worker
 
-Static marketing site (HTML) with a small build step for [Cloudflare Pages](https://developers.cloudflare.com/pages/).
+Static marketing site (HTML). `npm run build` writes deployable files to `public/`.
 
-## Cloudflare Pages (connect this repo)
+## Cloudflare Workers (Git / Workers Builds)
+
+Use this when you connect the repo under **Workers** and the dashboard requires a **Deploy command**.
+
+| Setting | Value |
+|--------|--------|
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+
+[`wrangler.toml`](./wrangler.toml) uses **[static assets](https://developers.cloudflare.com/workers/static-assets/binding/)** (`./public`). No separate Worker script is required.
+
+## Cloudflare Pages (optional)
+
+Create the project under **Workers & Pages → Pages → Connect to Git** (not Workers Builds).
 
 | Setting | Value |
 |--------|--------|
 | Framework preset | None |
 | Build command | `npm run build` |
 | Build output directory | `public` |
-| **Deploy command** | **Leave blank** |
 
-Pages uploads the `public` folder after a successful build. A **Deploy command** such as `npx wrangler deploy` is for **Workers**, not Pages, and will fail with “Missing entry-point”.
+If the UI allows an empty **Deploy command**, leave it empty; Pages publishes `public` after the build. If your flow only offers Workers-style deploys, use the **Workers** section above instead.
 
-## Deploy from your machine (optional)
+## Deploy from your machine
 
 ```bash
 npm install
@@ -21,4 +33,5 @@ npx wrangler login
 npm run deploy
 ```
 
-`deploy` runs `wrangler pages deploy public` (not `wrangler deploy`).
+- **`npm run deploy`** — `wrangler deploy` (Workers / static assets).
+- **`npm run deploy:pages`** — `wrangler pages deploy` (Pages project by name).

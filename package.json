@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build-public.mjs",
-    "deploy": "npm run build && wrangler pages deploy public --project-name=co-worker",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:pages": "npm run build && wrangler pages deploy public --project-name=co-worker",
     "pages:dev": "npm run build && wrangler pages dev public"
   },
   "devDependencies": {

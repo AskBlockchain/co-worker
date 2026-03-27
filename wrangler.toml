@@ -1,12 +1,14 @@
-# Used for LOCAL uploads: npx wrangler pages deploy public --project-name=co-worker
-#
-# Cloudflare Pages (Git) — in the project settings set:
+# Cloudflare Workers (Git / Workers Builds)
 #   Build command:  npm run build
-#   Build output:   public
-#   Deploy command: (leave EMPTY — Pages publishes "public" automatically after build)
+#   Deploy command: npx wrangler deploy
 #
-# Do NOT use "npx wrangler deploy" here; that is for Workers, not Pages, and will fail.
+# Static HTML is produced in ./public by the build; this Worker serves those assets.
+#
+# Cloudflare Pages (alternative): use "Connect to Git" under Pages (not Workers),
+# build command npm run build, output directory public, and no Worker deploy step.
 
 name = "co-worker"
 compatibility_date = "2025-03-01"
-pages_build_output_dir = "public"
+
+[assets]
+directory = "./public"
