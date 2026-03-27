@@ -1,7 +1,13 @@
 {
   "name": "co-worker",
   "private": true,
+  "scripts": {
+    "build": "node scripts/build-public.mjs",
+    "deploy": "npm run build && wrangler pages deploy public --project-name=co-worker",
+    "pages:dev": "npm run build && wrangler pages dev public"
+  },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.0"
+    "@biomejs/biome": "^2.0.0",
+    "wrangler": "^4.0.0"
   }
 }
