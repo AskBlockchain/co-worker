@@ -1,6 +1,11 @@
-# Cloudflare Pages — static export in ./public (run: npm run build)
-# Dashboard (Git): Build command = npm run build, Build output = public
-# CLI: npm run deploy  (requires: npx wrangler login)
+# Used for LOCAL uploads: npx wrangler pages deploy public --project-name=co-worker
+#
+# Cloudflare Pages (Git) — in the project settings set:
+#   Build command:  npm run build
+#   Build output:   public
+#   Deploy command: (leave EMPTY — Pages publishes "public" automatically after build)
+#
+# Do NOT use "npx wrangler deploy" here; that is for Workers, not Pages, and will fail.
 
 name = "co-worker"
 compatibility_date = "2025-03-01"
