@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-Worker.xyz — AI-Powered Business Tools for Everyone</title>
 <meta name="description" content="Private AI hosting, business automation, and agentic commerce — built for non-technical entrepreneurs. Pre-order CW Credits and be first in line.">
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R49PS8YP8N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R49PS8YP8N');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
@@ -579,8 +587,11 @@ nav .container {
   text-align: center;
 }
 .waitlist-form {
-  display: flex; gap: 10px;
+  display: flex; flex-direction: column; gap: 10px;
   margin-top: 28px;
+}
+.waitlist-row {
+  display: flex; gap: 10px;
 }
 .waitlist-input {
   flex: 1;
@@ -811,6 +822,7 @@ footer {
   .hero { padding: 120px 0 80px; }
   .hero h1 { font-size: 32px; }
   .waitlist-form { flex-direction: column; }
+  .waitlist-row { flex-direction: column; }
   .problem-stats { grid-template-columns: 1fr; }
   .section { padding: 70px 0; }
 }
@@ -1123,11 +1135,18 @@ footer {
       <div class="section-label">Stay in the loop</div>
       <div class="section-title">Not ready to buy? Join the waitlist.</div>
       <p class="section-subtitle" style="margin: 0 auto;">Get early access, founder updates, and first look at new features. No spam, ever.</p>
-      <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-        <input type="email" class="waitlist-input" placeholder="your@email.com" required>
-        <button type="submit" class="waitlist-btn">Join waitlist</button>
+      <form class="waitlist-form" id="waitlist-form" onsubmit="handleWaitlist(event)">
+        <div class="waitlist-row">
+          <input type="text" class="waitlist-input" name="name" placeholder="Your first name" required>
+          <input type="email" class="waitlist-input" name="email" placeholder="your@email.com" required>
+        </div>
+        <button type="submit" class="waitlist-btn" style="width:100%">Join the waitlist</button>
       </form>
-      <p class="waitlist-note">Join 0 others on the waitlist. Unsubscribe anytime.</p>
+      <div id="waitlist-success" style="display:none; margin-top:28px; padding:24px; background:var(--emerald-light); border-radius:12px;">
+        <p style="font-family:var(--font-display); font-size:18px; font-weight:600; color:#059669; margin-bottom:6px;">You're on the list!</p>
+        <p style="font-family:var(--font-display); font-size:14px; color:#065F46;">We'll send you founder updates and early access details. Keep an eye on your inbox.</p>
+      </div>
+      <p class="waitlist-note">No spam, ever. Unsubscribe anytime.</p>
     </div>
   </div>
 </section>
@@ -1254,15 +1273,53 @@ function handleBuy() {
     growth:   'https://buy.stripe.com/eVqdR27Eb5P456F8WC6EU02',
     business: 'https://buy.stripe.com/aFacMY7Eb0uK0Qp2ye6EU03'
   };
+  // Track in Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'begin_checkout', { event_category: 'conversion', event_label: selectedPlan });
+  }
   window.location.href = links[selectedPlan] || links.growth;
 }
 
+// ===== WAITLIST LEAD CAPTURE — Google Forms =====
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScd2eBYCg2EfjASk_zk9wMvfYlhltcxWblAbgxgsCqkir6MvA/formResponse';
+const FIELD_NAME = 'entry.331854524';
+const FIELD_EMAIL = 'entry.525940809';
+
 function handleWaitlist(e) {
   e.preventDefault();
-  const email = e.target.querySelector('input').value;
-  // Replace with your email collection endpoint
-  alert('Thank you! ' + email + ' has been added to the waitlist.\\n\\nTo activate: Connect this to your email service (Mailchimp, ConvertKit, etc.) or a simple backend.');
-  e.target.querySelector('input').value = '';
+  var form = e.target;
+  var name = form.querySelector('input[name="name"]').value.trim();
+  var email = form.querySelector('input[name="email"]').value.trim();
+  var btn = form.querySelector('button[type="submit"]');
+
+  btn.textContent = 'Joining...';
+  btn.disabled = true;
+
+  // Build form data for Google Forms
+  var formData = new URLSearchParams();
+  formData.append(FIELD_NAME, name);
+  formData.append(FIELD_EMAIL, email);
+
+  // Submit silently to Google Forms
+  // mode: no-cors means we cannot read the response, but the data IS captured by Google
+  fetch(GOOGLE_FORM_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formData.toString()
+  })
+  .then(function() { showWaitlistSuccess(); })
+  .catch(function() { showWaitlistSuccess(); });
+
+  // Track in Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'waitlist_signup', { event_category: 'engagement', event_label: 'waitlist' });
+  }
+}
+
+function showWaitlistSuccess() {
+  document.getElementById('waitlist-form').style.display = 'none';
+  document.getElementById('waitlist-success').style.display = 'block';
 }
 
 // Smooth scroll for anchor links
